@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
+import Message from './conteudos/mensagem.jsx';
 
 const TOTAL_FOTOS = 160;
 const INTERVALO_EM_SEGUNDOS = 5;
@@ -51,7 +52,11 @@ function App() {
           <div className={`overlay ${isFading ? 'fading' : ''}`}></div>
 
           {iniciado ? (
+            <>
             <h1>Para o Meu Amor</h1>
+            <Message />
+            
+          </>
           ) : (
             <div className="start-overlay">
               <button onClick={handleStart} className="play-button">
