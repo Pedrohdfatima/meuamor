@@ -1,11 +1,13 @@
-/* src/App.css (VERSÃO FINAL COM RESPONSIVIDADE) */
+/* src/App.css (VERSÃO FINAL COM LAYOUT CORRIGIDO) */
+
 body {
   margin: 0;
   font-family: 'Segoe UI', 'Roboto', sans-serif;
   background-color: #000;
+  overflow: hidden; /* Evita barras de rolagem no corpo da página */
 }
 
-.loading-screen {
+.loading-screen, .start-overlay {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -22,18 +24,22 @@ body {
   left: 0;
   background-size: cover;
   background-position: center;
-  background-repeat: no-repeat;
 }
 
+/* CONTAINER DE CONTEÚDO CORRIGIDO */
 .content-container {
   height: 100%;
   width: 100%;
   position: relative;
   display: flex;
+  flex-direction: column; /* <<< MUITO IMPORTANTE: Itens empilhados na vertical */
   justify-content: center;
   align-items: center;
   text-align: center;
   color: white;
+  overflow-y: auto; /* <<< MUITO IMPORTANTE: Permite rolagem se o conteúdo for grande */
+  padding: 40px 20px; /* Adiciona um respiro nas bordas */
+  box-sizing: border-box;
 }
 
 .overlay {
@@ -57,16 +63,14 @@ body {
   font-weight: bold;
   text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.8);
   z-index: 2;
+  margin-bottom: 0;
 }
 
 .start-overlay {
   background-color: rgba(0, 0, 0, 0.6);
   position: absolute;
   top: 0; left: 0;
-  width: 100%; height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  width: 100%;
   z-index: 10;
 }
 
@@ -87,84 +91,39 @@ body {
   color: black;
 }
 
-.spotify-player {
-  position: fixed;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 90%;
-  max-width: 500px;
-  z-index: 1000;
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
-  border-radius: 12px;
-  animation: fadeInPlayer 1s ease-out;
+/* MENSAGEM ROMÂNTICA CORRIGIDA */
+.mensagem-romantica {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 1.2rem;
+  line-height: 1.6;
+  max-width: 700px;
+  margin: 20px 0; /* Espaçamento vertical */
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9);
+  z-index: 2;
+  animation: fadeInText 2s ease-in-out;
 }
 
+/* PLAYER DO SPOTIFY CORRIGIDO */
+.spotify-player {
+  width: 90%;
+  max-width: 500px;
+  z-index: 2;
+  border-radius: 12px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+  margin-top: 20px; /* Espaço entre a instrução e o player */
+}
+
+/* INSTRUÇÃO DO SPOTIFY CORRIGIDA */
 .spotify-instruction {
-  position: fixed;
-  bottom: 180px;
-  left: 50%;
-  transform: translateX(-50%);
   color: white;
-  background-color: rgba(0, 0, 0, 0.7);
   padding: 8px 15px;
   border-radius: 20px;
   font-size: 0.9rem;
   text-align: center;
-  z-index: 999;
-  animation: fadeInPlayer 1s ease-out;
+  z-index: 2;
+  margin-top: 30px; /* Espaço entre a mensagem e a instrução */
 }
 
-@keyframes fadeInPlayer {
-  from {
-    opacity: 0;
-    transform: translateX(-50%) translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-  }
-}
-
-/* =============================================== */
-/* === ESTILOS RESPONSIVOS PARA CELULARES E TABLETS === */
-/* =============================================== */
-@media (max-width: 768px) {
-  
-  .content-container h1 {
-    font-size: 2.8rem;
-  }
-
-  .play-button {
-    font-size: 1.2rem;
-    padding: 15px 30px;
-  }
-
-  .spotify-instruction {
-    bottom: 175px;
-    font-size: 0.8rem;
-    padding: 6px 12px;
-  }
-
-  .spotify-player {
-    bottom: 15px;
-  }
-}
-/* Estilos para a mensagem romântica */
-.mensagem-romantica {
-  font-family: 'Georgia', 'Times New Roman', serif; /* Uma fonte mais clássica/romântica */
-  font-size: 1.2rem;
-  line-height: 1.6; /* Espaçamento entre as linhas para melhor leitura */
-  max-width: 700px; /* Largura máxima para o texto não ficar muito largo em telas grandes */
-  margin: 20px 40px 0; /* Espaçamento: 20px em cima, 40px nas laterais, 0 embaixo */
-  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9); /* Sombra mais forte para garantir a leitura */
-  z-index: 2; /* Garante que fique na frente do overlay */
-  height: 300px;
-  /* Animação para o texto aparecer suavemente */
-  animation: fadeInText 2s ease-in-out;
-}
-
-/* Animação de fade in para o texto */
 @keyframes fadeInText {
   from {
     opacity: 0;
@@ -176,15 +135,29 @@ body {
   }
 }
 
-/* =============================================== */
-/* === AJUSTE RESPONSIVO PARA A MENSAGEM === */
-/* =============================================== */
-
-/* Dentro do seu @media query que já existe */
+/* BLOCO RESPONSIVO UNIFICADO E CORRIGIDO */
 @media (max-width: 768px) {
+  
+  .content-container h1 {
+    font-size: 2.8rem;
+  }
+
+  .play-button {
+    font-size: 1.2rem;
+    padding: 15px 30px;
+  }
+  
   .mensagem-romantica {
-    font-size: 1rem; /* Diminui a fonte no celular */
-    margin: 20px 20px 0; /* Diminui o espaçamento lateral */
+    font-size: 1rem;
     line-height: 1.5;
+  }
+
+  .spotify-instruction {
+    margin-top: 20px;
+    font-size: 0.8rem;
+  }
+
+  .spotify-player {
+    margin-top: 15px;
   }
 }

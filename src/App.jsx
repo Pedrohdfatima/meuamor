@@ -40,6 +40,7 @@ function App() {
   const fotoAtualUrl = fotosEmbaralhadas[indiceAtual];
   const proximaFotoUrl = fotosEmbaralhadas[(indiceAtual + 1) % fotosEmbaralhadas.length];
 
+// Em App.jsx
   return (
     <>
       <img src={proximaFotoUrl} style={{ display: 'none' }} alt="preloading" />
@@ -48,15 +49,31 @@ function App() {
         className="background-container"
         style={{ backgroundImage: `url("${fotoAtualUrl}")` }}
       >
-        <div className="content-container">
+        <div className="content-container"> {/* <-- TUDO FICARÁ AQUI DENTRO */}
           <div className={`overlay ${isFading ? 'fading' : ''}`}></div>
 
           {iniciado ? (
             <>
-            <h1>Para o Meu Amor</h1>
-            <Message />
-            
-          </>
+              <h1>Para o Meu Amor</h1>
+              <Message />
+              
+              {/* O PLAYER E A INSTRUÇÃO FORAM MOVIDOS PARA CÁ */}
+              <span className="spotify-instruction">
+                Dê o play para nossa trilha sonora ❤️
+              </span>
+              <div className="spotify-player">
+                <iframe
+                  style={{ borderRadius: '12px' }}
+                  src="https://open.spotify.com/embed/playlist/3k078yDFkRCgcHUwZPck4j?utm_source=generator"
+                  width="100%"
+                  height="152"
+                  frameBorder="0"
+                  allowFullScreen=""
+                  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                  loading="lazy"
+                ></iframe>
+              </div>
+            </>
           ) : (
             <div className="start-overlay">
               <button onClick={handleStart} className="play-button">
@@ -66,29 +83,6 @@ function App() {
           )}
         </div>
       </div>
-
-
- 
-      {/* O player agora só é renderizado se 'iniciado' for true */}
-      {iniciado && (
-        <>
-        <span className="spotify-instruction">
-            Dê o play para nossa trilha sonora ❤️
-          </span>
-        <div className="spotify-player">
-          <iframe
-            style={{ borderRadius: '12px' }}
-            src="https://open.spotify.com/embed/playlist/3k078yDFkRCgcHUwZPck4j?utm_source=generator"
-            width="100%"
-            height="152"
-            frameBorder="0"
-            allowFullScreen=""
-            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-            loading="lazy"
-          ></iframe>
-        </div>
-         </>
-      )}
     </>
   );
   
